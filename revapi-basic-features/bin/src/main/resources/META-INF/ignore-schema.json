@@ -1,0 +1,49 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "regex": {
+                "type": "boolean",
+                "default": "false"
+            },
+            "code": {
+                "type": "string"
+            },
+            "old": {
+                "$ref": "#/definitions/elementMatch"
+            },
+            "new": {
+                "$ref": "#/definitions/elementMatch"
+            },
+            "justification": {
+                "type": "string"
+            }
+        },
+        "additionalProperties": {
+            "type": "string"
+        },
+        "required": [ "code", "justification" ]
+    },
+    "definitions": {
+        "elementMatch": {
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "matcher": {
+                            "type": "string"
+                        },
+                        "match": {
+                            "type": "string"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -197,7 +197,10 @@ public enum Code {
     METHOD_PARAMETER_TYPE_ERASURE_CHANGED("java.method.parameterTypeErasureChanged", NON_BREAKING, BREAKING, null,
             "parameterIndex"),
     METHOD_VARARG_OVERLOADS_ONLY_DIFFER_IN_VARARG_PARAMETER("java.method.varargOverloadsOnlyDifferInVarargParameter",
-            NON_BREAKING, NON_BREAKING, POTENTIALLY_BREAKING);
+            NON_BREAKING, NON_BREAKING, POTENTIALLY_BREAKING),
+
+    METHOD_VISIBILITY_INCREASED_IN_FINAL_CLASS("java.method.visibilityIncreasedInFinalClass", NON_BREAKING, EQUIVALENT,
+            null, "oldVisibility", "newVisibility");
 
     private final String code;
     private final EnumMap<CompatibilityType, DifferenceSeverity> classification;

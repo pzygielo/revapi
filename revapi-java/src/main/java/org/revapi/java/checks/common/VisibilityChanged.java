@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2023 Lukas Krejci
+ * Copyright 2014-2025 Lukas Krejci
  * and other contributors as indicated by the @author tags.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -45,7 +45,8 @@ public abstract class VisibilityChanged extends CheckBase {
         if (oldElement != null && newElement != null) {
             boolean oldAccessible = isAccessible(oldElement);
             boolean newAccessible = isAccessible(newElement);
-            // check if both are accessible or if they differ.. don't check if they're both private
+            // check if both are accessible or if they differ.. don't check if they're both
+            // private
             if (oldAccessible || newAccessible) {
                 pushActive(oldElement, newElement);
             }
@@ -106,7 +107,7 @@ public abstract class VisibilityChanged extends CheckBase {
                 modifier(oldVisibility), "newVisibility", modifier(newVisibility)));
     }
 
-    private String modifier(Modifier m) {
+    protected static String modifier(Modifier m) {
         return m == null ? "package" : m.name().toLowerCase();
     }
 

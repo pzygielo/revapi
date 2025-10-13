@@ -1,0 +1,106 @@
+= Architecture
+
+On a high level, Revapi has a simple architecture consisting of a linear pipeline that processes a tree of individual
+API elements.
+
+The API elements come from archives. The implementations of the archive interface are responsible for providing the
+bytes the archive consists of and optionally its version.
+
+A set of archives containing the old version of API is passed to an archive analyzer that produces a (multi) tree of API
+elements (internally called `ElementForest`). The archives of the new version are analyzed in the same way.
+
+The two API forests are then consistently sorted and traversed in parallel. New or missing elements are detected and
+equivalent elements are compared using an element analyzer, producing a set of reports that contain the differences
+found while comparing the elements. The differences are then simply reported.
+
+The following diagram depicts the high level workflow graphically.
+
+[plantuml]
+....
+start
+fork
+  :Old Archives;
+  :Archive Analyzer;
+  ->AST;
+  :Tree Filters;
+  ->Pruned AST;
+fork again
+  :New Archives;
+  :Archive Analyzer;
+  ->AST;
+  :Tree Filters;
+  ->Pruned AST;
+end fork
+:Difference Analyzer;
+->Difference Reports;
+:Difference Transforms;
+->Finalized Difference Reports;
+:Reporters;
+stop
+....
+
+Each of the above steps is configurable by the API author. For example, it is usually the difference transforms that
+the library author uses to add justifications and assign criticality to individual API changes found during
+the analysis.
+
+Of course, a closer look at the architecture reveals more complex details, but the high level look is still valid.
+
+For more in-depth look at the architecture, see xref:extending-revapi.adoc[].
+
+== Differences
+
+From an API author point of view, you will most usually handle the differences that Revapi finds in the APIs.
+
+A difference consists of the following data:
+
+`code`:: This is a unique textual ID of the difference.
+`name`:: A human readable name of the difference.
+`description`:: Detailed description of what the difference represents. This is meant for human consumption.
+`classification`:: A mapping between a compatibility type and severity of the problem expressing how severe
+the difference is in given compatibility "modes" (e.g. a binary incompatible change might be source compatible)
+`criticality`:: How critical the difference is as judged by the authors. This is distinct from the severity because it
+is meant to be assigned manually by the API authors during the evolution of the API. It should express how the API
+change is dealt with (e.g. documented) instead of how it affects the users of the API (which is what the severity
+expresses).
+`attachments`:: These are programmatically assigned additional "qualities" of the difference that can be used (or
+sometimes are necessary) to reference the difference in the configuration (e.g. when writing down the justification for
+the API change, etc.).
+
+Revapi recognizes 4 types of compatibility:
+
+* `SOURCE` - old and new API is source compatible if the code using the old API can be compiled against the new API
+without modification.
+* `BINARY` - old and new API is binary compatible if the code compiled against the old API can run using the new API
+with modification and error.
+* `SEMANTIC` - old and new API is semantically compatible if they behave the same
+* `OTHER` - other type of compatibility not captured by the previous three.
+
+A difference can have 1 of the 4 severities (per compatibility type):
+
+* `BREAKING` - the differences breaks the API compatibility (of given type)
+* `POTENTIALLY_BREAKING` - the difference may break the API compatibility (of given type) under some specific
+circumstances
+* `NON_BREAKING` - the difference doesn't break the API
+* `EQUIVALENT` - "there is no change" - this is provided so that transforms and other tools can declare that certain
+changes are not even non-breaking - they are effectively non-existent.
+
+A criticality is identified by its name and has a level associated with it. The higher the level, the more critical
+the criticality is. There are 4 predefined criticalities:
+
+* `allowed` - for API changes that are allowed to happen and might not even be tracked in some kind of generated report.
+The level of this is set to `1000`.
+* `documented` - for API changes that are justified and documented in some generated report. The level of this is set
+to `2000`.
+* `highlight` - essentially the same as `documented` but more "severe". Such API changes should be somehow highlighted
+in the generated reports because they are very important to take note of by the users. The level of this is set to
+`3000`.
+* `error` - These changes should not be allowed in a release. The level of this is set to the maximum integer value.
+There can be no more severe criticality than this.
+
+The criticality is not generally assigned directly by the difference analyzer. It is meant to be assigned by
+the API author that configures the analysis through configuring difference transform extensions to assign the criticality
+based on some criteria.
+
+The recognized criticalities can be configured in the xref:configuration.adoc#_criticality[pipeline configuration] where
+one can define a completely new set of criticalities known to the analysis or just augment the levels of the default
+ones.

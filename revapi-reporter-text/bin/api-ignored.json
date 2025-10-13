@@ -1,0 +1,23 @@
+{
+  "revapi": {
+    "ignore": [
+      {
+        "code": "java.class.nonPublicPartOfAPI",
+        "old": "class freemarker.core.Expression.ReplacemenetState",
+        "new": "class freemarker.core.Expression.ReplacemenetState",
+        "justification": "This is a problem of freemarker."
+      },
+      {
+        "code": "java.class.nonPublicPartOfAPI",
+        "old": "class freemarker.core.Token",
+        "new": "class freemarker.core.Token",
+        "justification": "This is a problem of freemarker."
+      },
+      {
+        "code": "java.class.nonPublicPartOfAPI",
+        "new": "class freemarker.core.Macro.WithArgs",
+        "justification": "This is a problem of freemarker."
+      }
+    ]
+  }
+}

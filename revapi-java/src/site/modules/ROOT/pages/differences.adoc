@@ -1929,8 +1929,31 @@ to make `public`, it will break all the classes that override your method with `
 2+| See <<Match Parameters>> for the common match parameters
 |====
 
-[[java.method.visibilityIncreased]]
-=== Method Visibility Reduced - `java.method.visibilityIncreased`
+[[java.method.visibilityIncreasedInFinalClass]]
+=== Method Visibility Increased In Final Class - `java.method.visibilityIncreasedInFinalClass`
+[cols="35s,<65d"]
+|=============
+| Binary severity   | equivalent
+| Source severity   | non-breaking
+| Semantic severity | NA
+|=============
+
+Increasing visilibility of a method in a final class doesn't represent neither source nor binary incompatibility.
+
+[options=header]
+|====
+2+| Match parameters
+| `package` | the package of the class
+| `classQualifiedName` | the fully-qualified name of the class
+| `classSimpleName` | the simple name of the class
+| `methodName` | the name of the method added
+| `oldVisibility` | The visibility of the type as it was in the old version.
+| `newVisibility` | The visibility of the type in the new version.
+2+| See <<Match Parameters>> for the common match parameters
+|====
+
+[[java.method.visibilityReduced]]
+=== Method Visibility Reduced - `java.method.visibilityReduced`
 [cols="35s,<65d"]
 |=============
 | Binary severity   | breaking

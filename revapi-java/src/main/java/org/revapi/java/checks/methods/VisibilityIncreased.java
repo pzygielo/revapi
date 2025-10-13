@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2023 Lukas Krejci
+ * Copyright 2014-2025 Lukas Krejci
  * and other contributors as indicated by the @author tags.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,10 +19,15 @@ package org.revapi.java.checks.methods;
 import java.util.EnumSet;
 
 import javax.annotation.Nullable;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 
+import org.revapi.Difference;
 import org.revapi.java.checks.common.VisibilityChanged;
+import org.revapi.java.model.MethodElement;
 import org.revapi.java.spi.Code;
 import org.revapi.java.spi.JavaMethodElement;
+import org.revapi.java.spi.JavaTypeElement;
 
 /**
  * @author Lukas Krejci
@@ -42,5 +47,16 @@ public final class VisibilityIncreased extends VisibilityChanged {
     @Override
     protected void doVisitMethod(@Nullable JavaMethodElement oldMethod, @Nullable JavaMethodElement newMethod) {
         doVisit(oldMethod, newMethod);
+    }
+
+    protected Difference report(ActiveElements<?> els, Modifier oldVisibility, Modifier newVisibility) {
+        MethodElement oldMethod = (MethodElement) els.oldElement;
+        JavaTypeElement oldClass = oldMethod.getParent();
+
+        Code code = oldClass.getDeclaringElement().getModifiers().contains(Modifier.FINAL)
+                ? Code.METHOD_VISIBILITY_INCREASED_IN_FINAL_CLASS : Code.METHOD_VISIBILITY_INCREASED;
+
+        return createDifference(code, Code.attachmentsFor(els.oldElement, els.newElement, "oldVisibility",
+                modifier(oldVisibility), "newVisibility", modifier(newVisibility)));
     }
 }

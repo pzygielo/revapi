@@ -1,0 +1,4 @@
+* xref:architecture.adoc[]
+* xref:configuration.adoc[]
+* xref:extending-revapi.adoc[]
+* link:{attachmentsdir}/apidocs/index.html[Javadoc]

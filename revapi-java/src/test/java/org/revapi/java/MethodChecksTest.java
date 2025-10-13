@@ -243,6 +243,8 @@ public class MethodChecksTest extends AbstractJavaElementAnalyzerTest {
                 "v2/methods/Visibility.java");
 
         Assert.assertEquals(2, (int) reporter.getProblemCounters().get(Code.METHOD_VISIBILITY_INCREASED.code()));
+        Assert.assertEquals(1,
+                (int) reporter.getProblemCounters().get(Code.METHOD_VISIBILITY_INCREASED_IN_FINAL_CLASS.code()));
         Assert.assertEquals(1, (int) reporter.getProblemCounters().get(Code.METHOD_VISIBILITY_REDUCED.code()));
     }
 
@@ -529,19 +531,22 @@ public class MethodChecksTest extends AbstractJavaElementAnalyzerTest {
                         + "\"varargOverloadsOnlyDifferInVarargParameter\": {" + "\"reportUnchanged\": false" + "}}}}]",
                 "v1/methods/Varargs.java", "v2/methods/Varargs.java");
 
-        // this should no longer be reported if reportUnchanged == false, because the method has not changed.
+        // this should no longer be reported if reportUnchanged == false, because the
+        // method has not changed.
         Assert.assertThat(reporter.getReports(),
                 CoreMatchers.not(new ReportMatcher("method void Varargs::varargs(int, float, int[])",
                         "method void Varargs::varargs(int, float, int[])", null,
                         Code.METHOD_VARARG_OVERLOADS_ONLY_DIFFER_IN_VARARG_PARAMETER)));
-        // this should still be reported because the method is either new or changed somehow
+        // this should still be reported because the method is either new or changed
+        // somehow
         Assert.assertThat(reporter.getReports(),
                 new ReportMatcher("method void Varargs::varargs(int, float)",
                         "method void Base::varargs(int, float, java.lang.Object[]) @ Varargs", null,
                         Code.METHOD_VARARG_OVERLOADS_ONLY_DIFFER_IN_VARARG_PARAMETER,
                         Code.METHOD_NUMBER_OF_PARAMETERS_CHANGED));
 
-        // and reportUnchanged == false should not have an effect on the non-vararg methods.
+        // and reportUnchanged == false should not have an effect on the non-vararg
+        // methods.
         Assert.assertFalse(reporter.getReports().stream()
                 .anyMatch(reportCheck("method void Varargs::varargs(int, float, int[])",
                         "method void Varargs::varargs(int, float, int[])",
