@@ -53,8 +53,7 @@ public final class VisibilityIncreased extends VisibilityChanged {
         JavaTypeElement oldClass = oldMethod.getParent();
 
         Code code = oldClass.getDeclaringElement().getModifiers().contains(Modifier.FINAL)
-                ? Code.METHOD_VISIBILITY_INCREASED_IN_FINAL_CLASS
-                : Code.METHOD_VISIBILITY_INCREASED;
+                ? Code.METHOD_VISIBILITY_INCREASED_IN_FINAL_CLASS : Code.METHOD_VISIBILITY_INCREASED;
 
         return createDifference(code, Code.attachmentsFor(els.oldElement, els.newElement, "oldVisibility",
                 modifier(oldVisibility), "newVisibility", modifier(newVisibility)));

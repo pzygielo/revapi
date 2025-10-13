@@ -26,7 +26,7 @@
         <relativePath>../revapi-build</relativePath>
     </parent>
     <artifactId>revapi-java</artifactId>
-    <version>0.28.5-SNAPSHOT</version>
+    <version>0.29.0-SNAPSHOT</version>
     <name>Java Analyzer</name>
     <description>Revapi extension to check API of java classes in jar archives.</description>
     <url>https://revapi.org</url>
@@ -216,25 +216,29 @@
                                     <code>java.method.parameterTypeChanged</code>
                                     <classSimpleName>DownplayHarmlessAnnotationChanges</classSimpleName>
                                     <methodName>transform</methodName>
-                                    <justification>This is a consequence of https://github.com/revapi/revapi/issues/222</justification>
+                                    <justification>This is a consequence of
+                                        https://github.com/revapi/revapi/issues/222</justification>
                                 </difference>
                                 <difference>
                                     <code>java.method.parameterTypeChanged</code>
                                     <classSimpleName>DownplayHarmlessAnnotationChanges</classSimpleName>
                                     <methodName>tryTransform</methodName>
-                                    <justification>This is a consequence of https://github.com/revapi/revapi/issues/222</justification>
+                                    <justification>This is a consequence of
+                                        https://github.com/revapi/revapi/issues/222</justification>
                                 </difference>
                                 <difference>
                                     <code>java.annotation.removed</code>
                                     <annotationType>javax.annotation.Nullable</annotationType>
                                     <classSimpleName>DownplayHarmlessAnnotationChanges</classSimpleName>
-                                    <justification>These, too, can be thought of as consequence of https://github.com/revapi/revapi/issues/222</justification>
+                                    <justification>These, too, can be thought of as consequence of
+                                        https://github.com/revapi/revapi/issues/222</justification>
                                 </difference>
                                 <difference>
                                     <code>java.annotation.removed</code>
                                     <annotationType>javax.annotation.Nonnull</annotationType>
                                     <classSimpleName>DownplayHarmlessAnnotationChanges</classSimpleName>
-                                    <justification>These, too, can be thought of as consequence of https://github.com/revapi/revapi/issues/222</justification>
+                                    <justification>These, too, can be thought of as consequence of
+                                        https://github.com/revapi/revapi/issues/222</justification>
                                 </difference>
                             </differences>
                         </revapi.differences>
