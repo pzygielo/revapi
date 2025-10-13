@@ -20,7 +20,6 @@ import java.util.EnumSet;
 
 import javax.annotation.Nullable;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.TypeElement;
 
 import org.revapi.Difference;
 import org.revapi.java.checks.common.VisibilityChanged;
@@ -54,7 +53,8 @@ public final class VisibilityIncreased extends VisibilityChanged {
         JavaTypeElement oldClass = oldMethod.getParent();
 
         Code code = oldClass.getDeclaringElement().getModifiers().contains(Modifier.FINAL)
-                ? Code.METHOD_VISIBILITY_INCREASED_IN_FINAL_CLASS : Code.METHOD_VISIBILITY_INCREASED;
+                ? Code.METHOD_VISIBILITY_INCREASED_IN_FINAL_CLASS
+                : Code.METHOD_VISIBILITY_INCREASED;
 
         return createDifference(code, Code.attachmentsFor(els.oldElement, els.newElement, "oldVisibility",
                 modifier(oldVisibility), "newVisibility", modifier(newVisibility)));
