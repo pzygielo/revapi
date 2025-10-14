@@ -17,7 +17,9 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.revapi</groupId>
@@ -56,7 +58,7 @@
         <maven-plugin-plugin.version>3.9.0</maven-plugin-plugin.version>
         <maven.version>3.8.1</maven.version>
         <revapi-java-spi.version>0.25.2-SNAPSHOT</revapi-java-spi.version>
-        <revapi-java.version>0.28.5-SNAPSHOT</revapi-java.version>
+        <revapi-java.version>0.29.0-SNAPSHOT</revapi-java.version>
         <revapi-reporter-text.version>0.15.2-SNAPSHOT</revapi-reporter-text.version>
         <revapi.version>0.15.2-SNAPSHOT</revapi.version>
     </properties>
@@ -186,7 +188,8 @@
                             <goal>enforce</goal>
                         </goals>
                         <configuration>
-                            <!-- We cannot ban these deps in a maven plugin, because maven reporting impl doesn't
+                            <!-- We cannot ban these deps in a maven plugin, because maven reporting
+                            impl doesn't
                                  currently have a newer version that would be free of these deps... -->
                             <skip>true</skip>
                         </configuration>
@@ -221,7 +224,8 @@
                                 <goal>clean</goal>
                                 <goal>install</goal>
                             </goals>
-                            <!--suppress MavenModelInspection -->
+                            <!--suppress
+                            MavenModelInspection -->
                             <mavenOpts>${itest.maven-opts} ${jacoco.maven-opts}</mavenOpts>
                             <debug>${itest.debug-output}</debug>
                         </configuration>
@@ -245,7 +249,8 @@
                                 <goal>install</goal>
                                 <goal>site</goal>
                             </goals>
-                            <!--suppress MavenModelInspection -->
+                            <!--suppress
+                            MavenModelInspection -->
                             <mavenOpts>${itest.maven-opts} ${jacoco.maven-opts}</mavenOpts>
                             <debug>${itest.debug-output}</debug>
                         </configuration>
@@ -282,7 +287,8 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <!--suppress MavenModelInspection -->
+                    <!--suppress
+                    MavenModelInspection -->
                     <argLine>${jacoco.maven-opts}</argLine>
                 </configuration>
             </plugin>
@@ -311,7 +317,8 @@
     </reporting>
     <profiles>
         <profile>
-            <!-- This is to disable doclint on the javadoc of the revapi-maven-plugin. This is because
+            <!-- This is to disable doclint on the javadoc of the revapi-maven-plugin. This is
+            because
                  helpmojo can't generate files that would pass it. -->
             <id>doclint-java8-disable</id>
             <activation>
@@ -350,7 +357,8 @@
             <id>itest.debug</id>
             <properties>
                 <itest.debug-output>true</itest.debug-output>
-                <itest.maven-opts>-Dmaven.plugin.validation=verbose -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=y</itest.maven-opts>
+                <itest.maven-opts>-Dmaven.plugin.validation=verbose -Xdebug
+                    -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=y</itest.maven-opts>
             </properties>
         </profile>
         <profile>
