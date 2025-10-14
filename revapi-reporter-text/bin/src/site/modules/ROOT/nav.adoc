@@ -1,1 +1,0 @@
-* link:{attachmentsdir}/apidocs/index.html[Javadoc]

@@ -1,9 +1,0 @@
-{
-  "revapi": {
-    "ignore": [
-      {
-        "code": "some"
-      }
-    ]
-  }
-}

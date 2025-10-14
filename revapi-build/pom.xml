@@ -17,9 +17,7 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.revapi</groupId>
@@ -330,8 +328,7 @@
                 <artifactId>versions-maven-plugin</artifactId>
                 <configuration>
                     <!-- these two properties should never be updated automatically. -->
-                    <excludeProperties>
-                        self-api-check.java-extension-version,self-api-check.maven-version</excludeProperties>
+                    <excludeProperties>self-api-check.java-extension-version,self-api-check.maven-version</excludeProperties>
                 </configuration>
             </plugin>
         </plugins>
@@ -381,10 +378,8 @@
                             </include>
                         </revapi.filter>
                         <revapi.differences>
-                            <justification>
-                                Revapi is not responsible for API problems in the 3rd
-                                party libs even though it makes them accessible through its API.
-                            </justification>
+                            <justification>Revapi is not responsible for API problems in the 3rd
+                                party libs even though it makes them accessible through its API.</justification>
                             <criticality>documented</criticality>
                             <differences>
                                 <item>
@@ -571,59 +566,47 @@
                                             <regex>true</regex>
                                             <code>java.class.externalClassExposedInAPI</code>
                                             <newArchive>org\.revapi:revapi:.*</newArchive>
-                                            <justification>
-                                                Revapi sub-modules implement the Revapi API
+                                            <justification>Revapi sub-modules implement the Revapi API
                                                 which makes them expose Revapi-specific
                                                 classes usually. In our case this is generally
                                                 OK because the modules are just Revapi
-                                                extensions which are supposed to do that.
-                                            </justification>
+                                                extensions which are supposed to do that.</justification>
                                         </item>
                                         <item>
                                             <regex>true</regex>
                                             <code>java.class.externalClassExposedInAPI</code>
                                             <newArchive>org\.jboss:jboss-dmr:.*</newArchive>
-                                            <justification>
-                                                Revapi sub-modules implement the Revapi
+                                            <justification>Revapi sub-modules implement the Revapi
                                                 API which makes them expose Jboss DMR (which is
                                                 part of our API). In our case this is generally OK
                                                 because the modules are just Revapi extensions which
-                                                are supposed to do that.
-                                            </justification>
+                                                are supposed to do that.</justification>
                                         </item>
                                         <item>
                                             <regex>true</regex>
                                             <code>java.class.nonPublicPartOfAPI</code>
                                             <newArchive>com\.fasterxml\.jackson\.core:.*:.*</newArchive>
-                                            <justification>
-                                                Revapi uses Jackson for representing the JSON
-                                                configuration.
-                                            </justification>
+                                            <justification>Revapi uses Jackson for representing the JSON
+                                                configuration.</justification>
                                         </item>
                                         <item>
                                             <regex>true</regex>
                                             <code>java.class.externalClassExposedInAPI</code>
                                             <newArchive>com\.fasterxml\.jackson\.core:.*.*</newArchive>
-                                            <justification>
-                                                Revapi uses Jackson for representing the JSON
-                                                configuration.
-                                            </justification>
+                                            <justification>Revapi uses Jackson for representing the JSON
+                                                configuration.</justification>
                                         </item>
                                         <item>
                                             <code>java.annotation.removed</code>
                                             <annotation>@javax.annotation.Nonnull</annotation>
-                                            <justification>
-                                                The convention in the codebase is now that
+                                            <justification>The convention in the codebase is now that
                                                 everything is assumed non-null unless annotated
-                                                @Nullable, so @NonNull doesn't make sense anymore.
-                                            </justification>
+                                                @Nullable, so @NonNull doesn't make sense anymore.</justification>
                                         </item>
                                         <item>
-                                            <justification>
-                                                Revapi is not responsible for API problems in the
+                                            <justification>Revapi is not responsible for API problems in the
                                                 3rd party libs even though it makes them accessible
-                                                through its API.
-                                            </justification>
+                                                through its API.</justification>
                                             <regex>true</regex>
                                             <code>.*</code>
                                             <newArchive>^(?!org\.revapi:).*$</newArchive>
@@ -637,8 +620,7 @@
                                     <roots>
                                         <!--suppress
                                         MavenModelInspection -->
-                                        <root>
-                                            ${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}</root>
+                                        <root>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}</root>
                                     </roots>
                                 </configurationFile>
                             </analysisConfigurationFiles>
